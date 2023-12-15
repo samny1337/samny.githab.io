@@ -1,4 +1,4 @@
-/**
+/** 
  * Нужно превратить файл в ts и указать типы аргументов и типы возвращаемого значения
  * */
 export const removePlus = (string: string) : string => string.replace(/^\+/, '');
