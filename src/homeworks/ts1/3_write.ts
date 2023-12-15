@@ -54,3 +54,86 @@
  * Принимает дату создания (строка)
  * */
 // export const createRandomOperation = (createdAt: string) => {};
+
+type Category = {
+  id: string;
+  name: string;
+  photo?: string;
+};
+
+type Product = {
+  id: string;
+  name: string;
+  photo: string;
+  desc?: string;
+  createdAt: string;
+  oldPrice?: number;
+  price: number;
+  category: Category;
+};
+
+type Cost = {
+  id: string;
+  name: string;
+  desc?: string;
+  createdAt: string;
+  amount: number;
+  category: Category;
+  type: 'Cost';
+};
+
+type Profit = {
+  id: string;
+  name: string;
+  desc?: string;
+  createdAt: string;
+  amount: number;
+  category: Category;
+  type: 'Profit';
+};
+
+type Operation = Cost | Profit;
+
+export const createRandomProduct = (createdAt: string): Product => {
+  const id: string = Math.floor(Math.random() * 100).toString();
+  const name: string = 'Огурец';
+  const photo: string = 'https://e0.edimdoma.ru/data/ingredients/0000/2107/2107-ed4_wide.jpg?1487748571';
+  const desc: string = 'Самый обычный огурец';
+  const price: number = 89;
+  const category: Category = {
+    id: Math.floor(Math.random() * 100).toString(),
+    name: 'Овощи',
+  };
+
+  return {
+    id,
+    name,
+    photo,
+    desc,
+    createdAt,
+    price,
+    category,
+  };
+};
+
+export const createRandomOperation = (createdAt: string): Operation => {
+  const id: string = Math.floor(Math.random() * 100).toString();
+  const name: string = 'Продажа огурца';
+  const desc: string = 'Продажа огурца по выгодной цене';
+  const amount: number = 1;
+  const category: Category = {
+    id: Math.floor(Math.random() * 100).toString(),
+    name: 'Овощи',
+  };
+  const type = 'Profit';
+
+  return {
+    id,
+    name,
+    desc,
+    createdAt,
+    amount,
+    category,
+    type,
+  };
+};

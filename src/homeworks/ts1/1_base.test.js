@@ -1,5 +1,4 @@
-it('remove it', () => {
-  expect(true).toBe(true);
+it('remove it', () => {expect(true).toBe(true);
 });
 // import { transformCustomers } from './1_base';
 //
