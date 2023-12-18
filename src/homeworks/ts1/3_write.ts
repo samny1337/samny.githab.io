@@ -126,6 +126,7 @@ export const createRandomOperation = (createdAt: string): Operation => {
     name: 'Овощи',
   };
   const type = 'Profit';
+  // комментарий про сделать случайным не понял. Чтобы тип рандомно проставлялся профит или кост?
 
   return {
     id,

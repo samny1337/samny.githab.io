@@ -1,24 +1,29 @@
-/** 
+/**
  * Нужно превратить файл в ts и указать типы аргументов и типы возвращаемого значения
  * */
-export const removePlus = (string: string) : string => string.replace(/^\+/, '');
+export const removePlus = (string: string): string => string.replace(/^\+/, '');
 
-export const addPlus = (string : string) : string => `+${string}`;
+export const addPlus = (string: string): string => `+${string}`;
 
-export const removeFirstZeros = (value : string) : string => value.replace(/^(-)?[0]+(-?\d+.*)$/, '$1$2');
+export const removeFirstZeros = (value: string): string => value.replace(/^(-)?[0]+(-?\d+.*)$/, '$1$2');
 
-export const getBeautifulNumber = (value: number, separator = ' ') : string =>
+export const getBeautifulNumber = (value: number, separator = ' '): string =>
   value?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, separator);
 
-export const round = (value: number, accuracy = 2) : number => {
+export const round = (value: number, accuracy = 2): number => {
   const d = 10 ** accuracy;
-  return Math.round(value * d) / d; 
+  return Math.round(value * d) / d;
 };
 
-const transformRegexp : RegExp =
+const transformRegexp: RegExp =
   /(matrix\(-?\d+(\.\d+)?, -?\d+(\.\d+)?, -?\d+(\.\d+)?, -?\d+(\.\d+)?, )(-?\d+(\.\d+)?), (-?\d+(\.\d+)?)\)/;
 
-export const getTransformFromCss = (transformCssString : string) : object => {
+type CssString = {
+  x: number;
+  y: number;
+};
+
+export const getTransformFromCss = (transformCssString: string): CssString => {
   const data = transformCssString.match(transformRegexp);
   if (!data) return { x: 0, y: 0 };
   return {
@@ -27,20 +32,26 @@ export const getTransformFromCss = (transformCssString : string) : object => {
   };
 };
 
-export const getColorContrastValue = ([red, green, blue] : number[]) : number => {
+export const getColorContrastValue = ([red, green, blue]: [red: number, green: number, blue: number]): number => {
   // http://www.w3.org/TR/AERT#color-contrast
-  return Math.round((red * 299 + green * 587 + blue * 114) / 1000)};
+  return Math.round((red * 299 + green * 587 + blue * 114) / 1000);
+};
 
-export const getContrastType = (contrastValue : number) : string => (contrastValue > 125 ? 'black' : 'white');
+type ContrastType = 'black' | 'white';
 
-export const shortColorRegExp : RegExp = /^#[0-9a-f]{3}$/i;
-export const longColorRegExp : RegExp = /^#[0-9a-f]{6}$/i;
+export const getContrastType = (contrastValue: number): ContrastType => (contrastValue > 125 ? 'black' : 'white');
+// не очень понял почему тут нельзя  использовать :string , ведь в любом же случае возвращается строка
 
-export const checkColor = (color : string) : void|never => {
+export const shortColorRegExp: RegExp = /^#[0-9a-f]{3}$/i;
+export const longColorRegExp: RegExp = /^#[0-9a-f]{6}$/i;
+
+export const checkColor = (color: string): void | never => {
   if (!longColorRegExp.test(color) && !shortColorRegExp.test(color)) throw new Error(`invalid hex color: ${color}`);
 };
 
-export const hex2rgb = (color : string) : number[] => {
+type RgbHex = [red: number, green: number, blue: number];
+
+export const hex2rgb = (color: string): RgbHex => {
   checkColor(color);
   if (shortColorRegExp.test(color)) {
     const red = parseInt(color.substring(1, 2), 16);
@@ -54,18 +65,19 @@ export const hex2rgb = (color : string) : number[] => {
   return [red, green, blue];
 };
 
-export const getNumberedArray = (arr : number[]|string[]) : object => arr.map((value, number) => ({ value, number }));
-export const toStringArray = (arr : any[]) : string[] => arr.map(({ value, number }) => `${value}_${number}`);
+type NumArr = { value: string | number; number: number };
 
+export const getNumberedArray = (arr: number[] | string[]): NumArr[] => arr.map((value, number) => ({ value, number }));
 
+export const toStringArray = (arr: NumArr[]): string[] => arr.map(({ value, number }) => `${value}_${number}`);
 
 type CustomerType = { id: number; name: string; age: number; isSubscribed: boolean };
+
+type IgnorId = Record<number, Omit<CustomerType, 'id'>>;
 
 export const transformCustomers = (customers: CustomerType[]) => {
   return customers.reduce((acc, customer: CustomerType) => {
     acc[customer.id] = { name: customer.name, age: customer.age, isSubscribed: customer.isSubscribed };
     return acc;
-  }, {} as Record<number, Omit<CustomerType, 'id'>>);
+  }, {} as IgnorId);
 };
-
-
