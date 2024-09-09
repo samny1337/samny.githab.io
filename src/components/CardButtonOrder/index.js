@@ -1,11 +1,10 @@
 import React from 'react';
 import styles from './styles.module.scss';
-import TrashCan from 'src/assets/img/trash-can.svg';
 
 const CardButtonOrder = () => {
   return (
     <button className={styles.cardButton}>
-      <img src={TrashCan} />
+      <img src={'https://cdn.icon-icons.com/icons2/908/PNG/512/trash-container-overflowing_icon-icons.com_70587.png'} />
     </button>
   );
 };

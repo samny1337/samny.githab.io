@@ -18,7 +18,7 @@ const App = () => {
   return (
     <div className="app-container">
       <Layout></Layout>
-      <Modal visible={false}></Modal>
+      <Modal visible={false} children={'children'}></Modal>
       <CardButton count={0}></CardButton>
       <ProductCard {...product}></ProductCard>
       <ProductCardFull {...product}></ProductCardFull>

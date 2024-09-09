@@ -1,11 +1,10 @@
 import React from 'react';
-import img from 'src/assets/img/beer-cans.svg';
 import styles from './styles.module.scss';
 
 const Logo = () => {
   return (
     <div className={styles.logo}>
-      <img height={'100%'} src={img} />
+      <img height={'100%'} src={'https://cdn-icons-png.flaticon.com/512/5968/5968835.png'} />
       <p className={styles.logoName}>JSX + CSS домашка</p>
     </div>
   );
