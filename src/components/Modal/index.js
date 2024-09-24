@@ -3,8 +3,7 @@ import styles from './styles.module.scss';
 import { Dialog, DialogTitle } from '@headlessui/react';
 
 const Modal = ({ visible, children }) => {
-  const [isOpen, setIsOpen] = useState(visible);
-
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <div className={styles.content}>
       <button onClick={() => setIsOpen(true)}>Открыть модальное окно</button>
